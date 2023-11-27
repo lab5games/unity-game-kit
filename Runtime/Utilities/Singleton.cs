@@ -10,12 +10,18 @@ namespace Lab5Games
         static bool _initlializing = false;
         static readonly object _instanceLock = new object();
 
+        public virtual bool Persistent { get; } = true;
+
         public static T Instance
         {
             get
             {
                 lock(_instanceLock)
                 {
+                    // do nothing if currently quitting 
+                    if (Quitting)
+                        return null; 
+
                     // instance already found?
                     if (_instance != null)
                         return _instance;
@@ -55,15 +61,54 @@ namespace Lab5Games
             }
         }
 
-        public virtual bool Persistent { get; } = true;
+        static void ConstructIfNeeded(Singleton<T> inInstance)
+        {
+            lock(_instanceLock)
+            {
+                // only construct if the instance is null and is not being initialized
+                if(_instance == null && !_initlializing)
+                {
+                    Debug.Log($"ConstructIfNeeded run for {typeof(T)}");
+                    _instance = inInstance as T;
+                }
+                else if(_instance != null && !_initlializing)
+                {
+                    Debug.LogError($"Destroying duplicate {typeof(T)} on {inInstance.gameObject.name}");
+                    Destroy(inInstance.gameObject);
+                }
+            }
+        }
 
         private void Awake()
         {
+            ConstructIfNeeded(this);
             
+            OnAwake();
+        }
+
+        protected virtual void OnAwake()
+        {
+            if(Persistent)
+            {
+                DontDestroyOnLoad(gameObject);
+            }
         }
     }
 
     public abstract class Singleton : MonoBehaviour
     {
+        public static bool Quitting { get; private set; } = false;
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        static void OnBeforeSceneLoad()
+        {
+            Quitting = false;
+        }
+
+        private void OnApplicationQuit()
+        {
+            Debug.Log($"Quitting in progress");
+            Quitting = true;
+        }
     }
 }
