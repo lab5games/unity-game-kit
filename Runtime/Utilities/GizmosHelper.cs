@@ -395,23 +395,20 @@ namespace Lab5Games
         #endregion
 
         #region Handles
+#if UNITY_EDITOR
         public struct HandlesColorScope : System.IDisposable
         {
             Color _oldColor;
 
             public HandlesColorScope(Color newColor)
             {
-#if UNITY_EDITOR
                 _oldColor = Handles.color;
                 Handles.color = newColor == default(Color) ? Handles.color : newColor;
-#endif
             }
 
             public void Dispose()
             {
-#if UNITY_EDITOR
                 Handles.color = _oldColor;
-#endif
             }
         }
 
@@ -419,26 +416,20 @@ namespace Lab5Games
         {
             get
             {
-#if UNITY_EDITOR
-                return UnityEditor.SceneView.currentDrawingSceneView != null ||
-                                (Application.isPlaying && Camera.main != null);
-#endif
-
-                return false;
+                return UnityEditor.SceneView.currentDrawingSceneView != null || 
+                    (Application.isPlaying && Camera.main != null);
             }
         }
 
         public static float GetHandleSize(Vector3 center)
         {
-            if(IsHandleHackAvailable)
-                return HandleUtility.GetHandleSize(center);
-
-            return 1f;
+            return HandleUtility.GetHandleSize(center);
         }
+#endif
 
-        [System.Diagnostics.Conditional("UNITY_EDITOR")]
         public static void DrawLabel(Vector3 position, string text, Vector2 offset = default(Vector2), GUIStyle style = default(GUIStyle), Color color = default(Color))
         {
+#if UNITY_EDITOR
             if (IsHandleHackAvailable)
             {
                 Transform cam = UnityEditor.SceneView.currentDrawingSceneView != null ?
@@ -486,11 +477,12 @@ namespace Lab5Games
                     }
                 }
             }
+#endif
         }
 
-        [System.Diagnostics.Conditional("UNITY_EDITOR")]
         public static void DrawArc(Vector3 center, Vector3 normal, Vector3 from, float angle, float radius, bool constantScreenSize = true, Color color = default(Color))
         {
+#if UNITY_EDITOR
             if(IsHandleHackAvailable)
             {
                 if (constantScreenSize)
@@ -501,11 +493,12 @@ namespace Lab5Games
                     Handles.DrawSolidArc(center, normal, from, angle, radius);
                 }
             }
+#endif
         }
 
-        [System.Diagnostics.Conditional("UNITY_EDITOR")]
         public static void DrawAngleBetween(Vector3 center, Vector3 from, Vector3 to, Vector3 axis, float radius, bool label, bool constantScreenSize = true, Color color = default(Color))
         {
+#if UNITY_EDITOR
             if(IsHandleHackAvailable)
             {
                 float angle = Vector3.SignedAngle(from, to, axis);
@@ -517,6 +510,7 @@ namespace Lab5Games
                     DrawLabel(labelPos, $"{angle:F2}");
                 }
             }
+#endif
         }
 #endregion
     }
