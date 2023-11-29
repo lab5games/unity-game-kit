@@ -50,8 +50,7 @@ namespace Lab5Games.Editor
                 "Assets/{0}/Content/Scenes",
                 "Assets/{0}/Content/Scriptables",
 
-                "Assets/{0}/Settings",
-
+                "Assets/Settings",
                 "Assets/Others"
             };
 

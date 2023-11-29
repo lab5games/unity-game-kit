@@ -1,0 +1,16 @@
+{
+    "name": "Lab5Games.Schedules",
+    "rootNamespace": "Lab5Games.Schedules",
+    "references": [
+        "GUID:3f4879143c0ed034fbd1633ee37fc049"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
