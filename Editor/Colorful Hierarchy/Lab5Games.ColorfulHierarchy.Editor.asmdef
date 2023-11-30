@@ -1,0 +1,18 @@
+{
+    "name": "Lab5Games.ColorfulHierarchy.Editor",
+    "rootNamespace": "Lab5Games.ColorfulHierarchy.Editor",
+    "references": [
+        "GUID:333cc12940a9efe438b4b7e7a56b3eb9"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
