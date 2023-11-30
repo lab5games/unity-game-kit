@@ -1,0 +1,14 @@
+{
+    "name": "Lab5Games.GameEvents",
+    "rootNamespace": "Lab5Games.GameEvents",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
